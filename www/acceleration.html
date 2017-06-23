@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Blank App</title>
+</head>
+<style>
+    button{width:150px;height: 20px;background: #cccccc;border-radius: 8px;margin: 40px auto}
+</style>
+<body>
+<script type="text/javascript" src="cordova.js"></script>
+<button id="btn1" value="">获取一次重力感应</button>
+<button id="btn2" value="">开启实时获取</button>
+<button id="btn3" value="">关闭实时获取</button>
+<div id="div1"></div>
+</body>
+</html>
+<script>
+    document.addEventListener('DOMContentLoaded',function () {
+        var oBtn1 = document.querySelector('#btn1')
+        var oBtn2 = document.querySelector('#btn2')
+        var oBtn3 = document.querySelector('#btn3')
+        var oDiv = document.querySelector('#div1')
+        var watchID = null
+        oBtn1.addEventListener('touchstart',function () {
+            function onSuccess(acceleration) {
+//                alert('Acceleration X: ' + acceleration.x + '\n' +
+//                    'Acceleration Y: ' + acceleration.y + '\n' +
+//                    'Acceleration Z: ' + acceleration.z + '\n' +
+//                    'Timestamp: '      + acceleration.timestamp + '\n');
+                oDiv.innerHTML ="x:"+ acceleration.x+"y:"+acceleration.y+"z:"+acceleration.x+"时间:"+acceleration.timestamp
+            }
+            function onError() {
+                alert('onError!');
+            }
+            navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
+        },false)
+
+        oBtn2.onclick = function () {
+            function onSuccess(acceleration) {
+                oDiv.innerHTML ="x:"+ acceleration.x+"y:"+acceleration.y+"z:"+acceleration.x+"时间:"+acceleration.timestamp
+            }
+            function onError() {
+                alert('onError!');
+            }
+            var options = { frequency: 1000 };  // Update every 3 seconds
+            watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+        }
+
+        oBtn3.onclick = function () {
+            navigator.accelerometer.clearWatch(watchID);
+        }
+    },false)
+</script>

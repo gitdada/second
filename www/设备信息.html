@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Blank App</title>
+    <style>
+        input{
+            width:150px;
+            height:30px;
+            background: #399;
+            font-size: 20px;
+            border-radius: 8px;
+        }
+        .div2{
+            width:100px;
+            height:100px;
+            position: absolute;
+            left:30%;
+            top:30%;
+            background: #ccc;
+        }
+        @-webkit-keyframes test {
+            0%{-webkit-transform: rotate(15deg)}
+            25%{-webkit-transform: rotate(-15deg)}
+            50%{-webkit-transform: rotate(15deg)}
+            75%{-webkit-transform: rotate(-15deg)}
+            100%{-webkit-transform: rotate(15deg)}
+        }
+        .shake{
+            -webkit-animation-name: test;
+            -webkit-animation-iteration-count: 2;
+            -webkit-animation-duration: 1s;
+            -webkit-animation-timing-function: ease;
+        }
+    </style>
+</head>
+<body>
+
+<input type="button" value="获取手机UUID" id="btn1">
+<input type="button" value="获取手机网络连接状况" id="btn2">
+<input type="button" value="震动" id="btn3">
+<video controls id="v1"></video>
+<script type="text/javascript" src="cordova.js"></script>
+<script>
+    function rnd(n,m){return parseInt(n+Math.random()*(m-n))}
+    document.addEventListener('DOMContentLoaded',function(){
+
+        var oBtn=document.querySelector('#btn1');
+        var oBtn2=document.querySelector('#btn2');
+        var oBtn3=document.querySelector('#btn3');
+
+        oBtn.onclick=function(){
+            alert(device.uuid);
+        };
+        oBtn2.onclick=function(){
+            alert(navigator.connection.type);//网络状况
+        };
+        oBtn3.onclick=function(){
+            navigator.vibrate(3);//震动  不支持苹果
+        };
+        //
+
+
+
+    },false);
+</script>
+</body>
+</html>
